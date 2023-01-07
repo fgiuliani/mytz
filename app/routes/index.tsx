@@ -1,17 +1,7 @@
 import { Form } from "@remix-run/react";
 import { type ActionArgs, redirect } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-
 import { type Timezone, timezones } from "../timezones";
 import moment from "moment-timezone";
-
-export const loader = async () => {
-  const currentDate = moment().format("YYYY-MM-DDTHH:mm");
-  const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  return json({ currentDate, currentTimezone });
-};
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
@@ -24,8 +14,6 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function Index() {
-  const { currentDate, currentTimezone } = useLoaderData<typeof loader>();
-
   return (
     <div className="bg-cyan-900 min-h-screen flex items-center">
       <div className="w-full">
@@ -45,7 +33,7 @@ export default function Index() {
                 type="datetime-local"
                 id="date"
                 name="date"
-                defaultValue={currentDate}
+                defaultValue={moment().format("YYYY-MM-DDTHH:mm")}
                 className="border border-gray-300 shadow p-3 w-full rounded mb-"
               />
             </div>
@@ -61,11 +49,19 @@ export default function Index() {
               <select
                 id="timezone"
                 name="timezone"
-                defaultValue={currentTimezone}
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               >
                 {timezones.map((t: Timezone) => (
-                  <option key={t.timezone} value={t.timezone}>
+                  <option
+                    key={t.timezone}
+                    value={t.timezone}
+                    {...(t.timezone ==
+                    Intl.DateTimeFormat().resolvedOptions().timeZone
+                      ? {
+                          selected: true,
+                        }
+                      : "")}
+                  >
                     {t.name}
                   </option>
                 ))}
