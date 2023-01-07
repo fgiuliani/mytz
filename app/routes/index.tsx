@@ -11,13 +11,12 @@ export async function action({ request }: ActionArgs) {
 
   let date = moment.tz(dateString, timezone);
 
-  console.log(dateString);
-  console.log(date);
-
   return redirect(`/${date.utc().format("YYYY-MM-DDTHH:mm")}`);
 }
 
 export default function Index() {
+  console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+
   return (
     <div className="bg-cyan-900 min-h-screen flex items-center">
       <div className="w-full">
@@ -53,7 +52,7 @@ export default function Index() {
               <select
                 id="timezone"
                 name="timezone"
-                defaultValue={Intl.DateTimeFormat().resolvedOptions().timeZone}
+                value={Intl.DateTimeFormat().resolvedOptions().timeZone}
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               >
                 {timezones.map((t: Timezone) => (
