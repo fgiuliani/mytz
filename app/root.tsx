@@ -16,7 +16,7 @@ export function links() {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Mytz: A cool time converter",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -26,7 +26,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
-        <title>Mytz: A cool time zone converter</title>
+        <title>Mytz: A cool time converter</title>
       </head>
       <body>
         <Outlet />
