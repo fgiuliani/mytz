@@ -20,7 +20,8 @@ export default function CalculateDate() {
     .format("MMMM Do YYYY, HH:mm");
 
   let localTimezone = timezones.find(
-    (t: Timezone) => t.timezone == moment.tz.guess()
+    (t: Timezone) =>
+      t.timezone == Intl.DateTimeFormat().resolvedOptions().timeZone
   )?.name;
 
   return (

@@ -53,7 +53,7 @@ export default function Index() {
               <select
                 id="timezone"
                 name="timezone"
-                defaultValue={moment.tz.guess()}
+                defaultValue={Intl.DateTimeFormat().resolvedOptions().timeZone}
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               >
                 {timezones.map((t: Timezone) => (
