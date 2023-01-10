@@ -14,6 +14,8 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function Index() {
+  console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+
   return (
     <div className="bg-cyan-900 min-h-screen flex items-center">
       <div className="w-full">
@@ -49,19 +51,11 @@ export default function Index() {
               <select
                 id="timezone"
                 name="timezone"
+                defaultValue={Intl.DateTimeFormat().resolvedOptions().timeZone}
                 className="border border-red-300 shadow p-3 w-full rounded mb-"
               >
                 {timezones.map((t: Timezone) => (
-                  <option
-                    key={t.timezone}
-                    value={t.timezone}
-                    {...(t.timezone ==
-                    Intl.DateTimeFormat().resolvedOptions().timeZone
-                      ? {
-                          selected: true,
-                        }
-                      : "")}
-                  >
+                  <option key={t.timezone} value={t.timezone}>
                     {t.name}
                   </option>
                 ))}
